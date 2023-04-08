@@ -87,5 +87,6 @@ function validate() {// validate modal form
     if (checkbox1.checked == false) {
       alert("Veuillez lire et accepter les conditions d'utilisations");
     }
+    return validate(this);
 
 }
