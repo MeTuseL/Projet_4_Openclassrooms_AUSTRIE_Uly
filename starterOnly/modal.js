@@ -6,6 +6,37 @@ const modalClose = document.querySelector(".close");
 const editNavBar = document.querySelector(".icon");
 const validateModal = document.querySelector('[name="reserve"]');
 
+const firstName = document.getElementById("first");
+const lastName = document.getElementById("last");
+const email = document.getElementById("email");
+const birthdate = document.getElementById("birthdate");
+// const spt = birthdate.value.split('/');
+// const newDate = new Date(spt[2],spt[1]-1,spt[0]);
+const quantity = document.getElementById("quantity");
+
+const location1 = document.getElementById("location1");
+const location2 = document.getElementById("location2");
+const location3 = document.getElementById("location3");
+const location4 = document.getElementById("location4");
+const location5 = document.getElementById("location5");
+const location6 = document.getElementById("location6");
+
+const checkbox1 = document.getElementById("checkbox1");
+
+const textControlLastName = document.querySelector("#last");
+const textControlFirstName = document.querySelector("#first");
+const textControlBirthdate = document.querySelector("#email");
+const textControlEmail = document.querySelector("#birthdate");
+const textControlQuantity = document.querySelector("#quantity");
+const firstError = document.querySelector(".first-error");
+const lastError = document.querySelector(".last-error");
+const birthdateError = document.querySelector(".birthdate-error");
+const emailError = document.querySelector(".email-error");
+const quantityError = document.querySelector(".quantity-error");
+const locationError = document.querySelectorAll(".checkbox-icon");
+const checkboxError = document.querySelector(".checkbox-error");
+const cguError = document.querySelector(".cgu-error");
+
 // Events
 editNavBar.addEventListener("click", editNav); // edit nav bar event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal)); // launch modal event
@@ -26,6 +57,7 @@ function launchModal() {// launch modal form
   modalbg.style.display = "block";
 }
 function closeModal() { // close modal form
+
   modalbg.style.display = "none";
 }
 function validateEmail() {// validate email form 
@@ -33,60 +65,96 @@ function validateEmail() {// validate email form
   const email = document.getElementById("email").value;
   return re.test(email);
 }
-function validate() {// validate modal form
+function validate(e) {// validate modal form
 
-  const firstName = document.getElementById("first");
-  const lastName = document.getElementById("last");
-  const email = document.getElementById("email");
-  const birthdate = document.getElementById("birthdate");
-  const quantity = document.getElementById("quantity");
 
-  const location1 = document.getElementById("location1");
-  const location2 = document.getElementById("location2");
-  const location3 = document.getElementById("location3");
-  const location4 = document.getElementById("location4");
-  const location5 = document.getElementById("location5");
-  const location6 = document.getElementById("location6");
+  //first name
+  if (firstName.value.length < 3) {
 
-  const checkbox1 = document.getElementById("checkbox1");
-
-   if (firstName.value.length < 3 & firstName.value !== "" ) {
-
-     alert('Votre prénom est trop court');
-
-   }
-   if (lastName.value.length < 3 & lastName.value !== "" ) {
-
-     alert('Votre nom est trop court');
-
-   }
-
-  if (firstName.value == "" || lastName.value == "" || email.value == ""
-  || birthdate.value == "" || quantity.value == "") {
-
-   alert('Un ou plusieurs champ est vide');
+    textControlFirstName.style.border = '2px solid #e54858';
+    firstError.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
+    firstError.style.opacity = '1';
 
   }
+  if (firstName.value == "") {
 
-   if (validateEmail() == false & email.value !== "") {
+    textControlFirstName.style.border = '2px solid #e54858';
+    firstError.innerHTML = "Champ vide.";
+    firstError.style.opacity = '1';
 
-     alert('E-mail non valide');
+  }
+  //last name
+  if (lastName.value.length < 3) {
 
-   }
+    textControlLastName.style.border = '2px solid #e54858';
+    lastError.innerHTML = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+    lastError.style.opacity = '1';
 
-   if (Number.isInteger(quantity.value) == false & quantity.value !== "") {
+  }
+  if (lastName.value == "") {
 
-    alert('Veuillez saisir un nombre entier');
-   }
+    textControlLastName.style.border = '2px solid #e54858';
+    lastError.innerHTML = "Champ vide.";
+    lastError.style.opacity = '1';
 
-   if (location1.checked == false & location2.checked == false & location3.checked == false
-    & location4.checked == false & location5.checked == false & location6.checked == false)
+  }
+  // email
+  if (validateEmail() == false) {
 
-    alert('Veuillez saisir un tournoi');
+    textControlEmail.style.border = '2px solid #e54858';
+    emailError.innerHTML = "Email non valide.";
+    emailError.style.opacity = '1';
 
-    if (checkbox1.checked == false) {
-      alert("Veuillez lire et accepter les conditions d'utilisations");
+  }
+  if (email.value == "") {
+
+    textControlEmail.style.border = '2px solid #e54858';
+    emailError.innerHTML = "Champ vide.";
+    emailError.style.opacity = '1';
+
+  }
+  //birthdate
+//   if (newDate.getFullYear( spt[2]) && newDate.getMonth(spt[1])+1 && newDate.getDate() == spt[0])
+// {
+//   textControlBirthdate.style.border = '2px solid #e54858';
+//   birthdateError.innerHTML = "Vous devez entrer votre date de naissance.";
+//   birthdateError.style.opacity = '1';
+// }
+  if (birthdate.value == "") {
+
+    textControlBirthdate.style.border = '2px solid #e54858';
+    birthdateError.innerHTML = "Champ vide";
+    birthdateError.style.opacity = '1';
+  }
+  //quantity
+  if (Number.isInteger(quantity.value) == false) {
+
+    textControlQuantity.style.border = '2px solid #e54858';
+    quantityError.innerHTML = "Veuillez saisir un nombre entier.";
+    quantityError.style.opacity = '1';
+  }
+  if (quantity.value == "") {
+
+    textControlQuantity.style.border = '2px solid #e54858';
+    quantityError.innerHTML = "Champ vide";
+    quantityError.style.opacity = '1';
+  }
+  //location
+  if (location1.checked == false & location2.checked == false & location3.checked == false
+    & location4.checked == false & location5.checked == false & location6.checked == false) {
+
+      locationError.forEach((span) => span.style.border = '2px solid #e54858' );
+      checkboxError.innerHTML = "Vous devez choisir une option.";
+      checkboxError.style.opacity = '1';
     }
-    return validate(this);
+
+    //CGU
+    if (checkbox1.checked == false) {
+    
+      cguError.innerHTML = "Vous devez vérifier que vous acceptez les termes et conditions.";
+      cguError.style.opacity = '1';
+    }
+
+  e.preventDefault();
 
 }
