@@ -131,6 +131,7 @@ function validateEmail(dataError) {
   }
 
 }
+
 function validateBirthdate(dataError) {
 
   const birthdateUser = new Date(birthdate.value);

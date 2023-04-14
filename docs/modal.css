@@ -92,6 +92,7 @@ img {
     display: block;
     text-align: left;
   }
+  
 }
 
 
@@ -101,7 +102,9 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
+  }
+  .formData[data-error]::after {
+    font-size: 0.4em;
   }
 } 
 
@@ -212,10 +215,14 @@ input {
   font-size: 20px;
   height: 48px;
 }
-
+@media screen and (min-width: 540px){
+  
+  .formData[data-error]::after {
+    font-size: 0.53em;
+  }
+}
 .formData[data-error]::after {
   content: attr(data-error);
-  font-size: 0.5em;
   color: #e54858;
   display: block;
   margin-top: 7px;
@@ -225,6 +232,7 @@ input {
   opacity: 0;
   transition: 0.3s;
 }
+
 .formData[data-error-visible="true"]::after {
   opacity: 1;
 }
@@ -524,6 +532,7 @@ footer {
     margin-top: 50px;
     text-align: center;
   }
+
 }
 
 @keyframes modalopen {
