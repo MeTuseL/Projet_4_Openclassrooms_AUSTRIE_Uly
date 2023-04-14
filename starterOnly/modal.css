@@ -212,21 +212,10 @@ input {
   font-size: 20px;
   height: 48px;
 }
-.data-error {
-  font-size: 0.5em;
-  color: #e54858;
-  display: block;
-  margin-top: 7px;
-  margin-bottom: 7px;
-  text-align: right;
-  line-height: 0.3;
-  opacity: 0;
-  transition: 0.3s;
-}
 
 .formData[data-error]::after {
   content: attr(data-error);
-  font-size: 0.4em;
+  font-size: 0.5em;
   color: #e54858;
   display: block;
   margin-top: 7px;
@@ -240,6 +229,9 @@ input {
   opacity: 1;
 }
 .formData[data-error-visible="true"] .text-control {
+  border: 2px solid #e54858;
+}
+.formData[data-error-visible="true"] .checkbox-icon:not(.checkbox-icon.icon-newlestter) {
   border: 2px solid #e54858;
 }
 /* 
