@@ -3,8 +3,10 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalClose = document.querySelector(".close");
+const btnClose = document.querySelector(".btn-close");
 const editNavBar = document.querySelector(".icon");
-const validateModal = document.querySelector('[name="reserve"]');
+const modal = document.querySelector('[name="reserve"]');
+const modalRegistValid = document.querySelector(".modal-registration-validated");
 const textControl = document.querySelectorAll(".text-control");
 const checkBoxInput = document.querySelectorAll(".checkbox-input");
 
@@ -23,18 +25,18 @@ const location6 = document.getElementById("location6");
 
 const checkbox1 = document.getElementById("checkbox1");
 
-const textControlLastName = document.querySelector("#last");
-const textControlFirstName = document.querySelector("#first");
-const textControlBirthdate = document.querySelector("#birthdate");
-const textControlEmail = document.querySelector("#birthdate");
-const textControlQuantity = document.querySelector("#quantity");
-const firstError = document.querySelector(".first-error");
-const lastError = document.querySelector(".last-error");
-const birthdateError = document.querySelector(".birthdate-error");
-const emailError = document.querySelector(".email-error");
-const quantityError = document.querySelector(".quantity-error");
-const checkboxError = document.querySelector(".checkbox-error");
-const cguError = document.querySelector(".cgu-error");
+// const textControlLastName = document.querySelector("#last");
+// const textControlFirstName = document.querySelector("#first");
+// const textControlBirthdate = document.querySelector("#birthdate");
+// const textControlEmail = document.querySelector("#birthdate");
+// const textControlQuantity = document.querySelector("#quantity");
+// const firstError = document.querySelector(".first-error");
+// const lastError = document.querySelector(".last-error");
+// const birthdateError = document.querySelector(".birthdate-error");
+// const emailError = document.querySelector(".email-error");
+// const quantityError = document.querySelector(".quantity-error");
+// const checkboxError = document.querySelector(".checkbox-error");
+// const cguError = document.querySelector(".cgu-error");
 
 const reEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 const reName = /^[a-zA-Z]+$/;
@@ -45,13 +47,12 @@ let resultEvent = "";
 editNavBar.addEventListener("click", editNav); // edit nav bar event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal)); // launch modal event
 modalClose.addEventListener("click", closeModal); // close modal event
-validateModal.addEventListener("submit", validate);// validate modal event
+btnClose.addEventListener("click", closeModal);
+modal.addEventListener("submit", validate);// validate modal event
+// validateModal.addEventListener("submit", confirmModal);
 textControl.forEach((input) => input.addEventListener("change",validateInput));
-// textControlLastName.addEventListener("change",validateInput);
-// textControlFirstName.addEventListener("change",validateInput);
 checkBoxInput.forEach((checkbox) => checkbox.addEventListener("change",validateCheckbox));
-// checkboxIcon.addEventListener("change",validateCheckbox);
-validateModal.addEventListener("submit", confirmModal);
+
 // functions
 function editNav() { // edit nav bar
 
@@ -64,10 +65,18 @@ function editNav() { // edit nav bar
 }
 function launchModal() {// launch modal form
   modalbg.style.display = "block";
+  modal.style.display = "block";
 }
 function closeModal() { // close modal form
-
+  modal.reset();
+  formData.forEach((data) => {
+    delete data.dataset.error;
+    delete data.dataset.correct;
+    delete data.dataset.errorVisible;
+  });
   modalbg.style.display = "none";
+  modal.style.display = "none";
+  modalRegistValid.style.display = "none";
 }
 function controlName(name) {
   return reName.test(name.value);
@@ -77,7 +86,11 @@ function controlEmail(email) {// control email form
 }
 function validateFirstName(dataError){
 
-  if (firstName.value == "") {
+  if (firstName.value == "" && formData[0].dataset.error == "Champ vide.") {
+    dataError.dataset.correct ="false";
+    resultEvent ="false";
+  }
+  else if (firstName.value == "") {
     dataError.dataset.errorVisible = "false";
     dataError.dataset.error = "";
     dataError.dataset.correct ="false";
@@ -105,7 +118,11 @@ function validateFirstName(dataError){
 }
 function validateLastName(dataError) {
 
-  if (lastName.value == "") {
+  if (lastName.value == "" && formData[1].dataset.error == "Champ vide.") {
+    dataError.dataset.correct ="false";
+    resultEvent ="false";
+  }
+  else if (lastName.value == "") {
     dataError.dataset.errorVisible = "false";
     dataError.dataset.error = "";
     dataError.dataset.correct ="false";
@@ -134,7 +151,11 @@ function validateLastName(dataError) {
 }
 function validateEmail(dataError) {
 
-  if (email.value == "") {
+  if (email.value == "" && formData[2].dataset.error == "Champ vide.") {
+    dataError.dataset.correct ="false";
+    resultEvent ="false";
+  }
+  else if (email.value == "") {
     dataError.dataset.errorVisible = "false";
     dataError.dataset.error = "";
     dataError.dataset.correct ="false";
@@ -163,7 +184,11 @@ function validateBirthdate(dataError) {
   const yearTimeDate = timeDate.getFullYear();
   const ageUser = Math.abs(yearTimeDate - 1970);
 
-  if (birthdate.value == "") {
+  if (birthdate.value == "" && formData[3].dataset.error == "Champ vide.") {
+    dataError.dataset.correct ="false";
+    resultEvent ="false";
+  }
+  else if (birthdate.value == "") {
     dataError.dataset.errorVisible = "false";
     dataError.dataset.error = "";
     dataError.dataset.correct ="false";
@@ -199,7 +224,11 @@ function validateQuantity(dataError) {
 
   const number = parseFloat(quantity.value);
 
-  if (quantity.value == "") {
+  if (quantity.value == "" && formData[0].dataset.error == "Champ vide.") {
+    dataError.dataset.correct ="false";
+    resultEvent ="false";
+  }
+  else if (quantity.value == "") {
     dataError.dataset.errorVisible = "false";
     dataError.dataset.error = "";
     dataError.dataset.correct ="false";
@@ -234,10 +263,16 @@ function validateQuantity(dataError) {
 function validateLocation(dataError) {
 
   if (location1.checked == false & location2.checked == false & location3.checked == false
+    & location4.checked == false & location5.checked == false & location6.checked == false
+     && formData[5].dataset.error == "Vous devez choisir une option.") {
+    dataError.dataset.correct ="false";
+    resultEvent ="false";
+  }
+  else if (location1.checked == false & location2.checked == false & location3.checked == false
     & location4.checked == false & location5.checked == false & location6.checked == false) {
     
-      dataError.dataset.errorVisible = "true";
-      dataError.dataset.error = "Vous devez choisir une option.";
+      dataError.dataset.errorVisible = "false";
+      dataError.dataset.error = "";
       dataError.dataset.correct ="false";
       resultEvent ="false";
   }
@@ -251,10 +286,15 @@ function validateLocation(dataError) {
 }
 function validateCgu(dataError){
 
-  if (checkbox1.checked == false) {
+  
+  if (checkbox1.checked == false && formData[6].dataset.error == "Vous devez vérifier que vous acceptez les termes et conditions.") {
+    dataError.dataset.correct ="false";
+    resultEvent ="false";
+  }
+  else if (checkbox1.checked == false) {
 
-    dataError.dataset.errorVisible = "true";
-      dataError.dataset.error = "Vous devez vérifier que vous acceptez les termes et conditions.";
+    dataError.dataset.errorVisible = "false";
+      dataError.dataset.error = "";
       dataError.dataset.correct ="false";
       resultEvent ="false";
   }
@@ -303,7 +343,6 @@ function emptyFieldsModal(){
     formData[6].dataset.errorVisible = "true";
     formData[6].dataset.error = "Vous devez vérifier que vous acceptez les termes et conditions.";
   }
-
 }
 function validateInput() {
 
@@ -319,9 +358,17 @@ function validateCheckbox(){
   validateCgu(formData[6]);
 }
 function validate(event) {// validate modal form
+  
+  event.preventDefault()
 
-  event.preventDefault();
-  emptyFieldsModal()
+  if (validateQuantity(formData[4]) == "true" && validateLocation(formData[5]) && validateCgu(formData[6]) == "true"){
+
+    launchValidateModal()
+  }
+  else {
+    emptyFieldsModal();
+  }
+  
 
   //first name
   // if (firstName.value.length < 3) {
@@ -410,9 +457,8 @@ function validate(event) {// validate modal form
   // }
 
 }
-function confirmModal(){
+function launchValidateModal(){
+  modal.style.display = "none";
+  modalRegistValid.style.display = "block";
 
-  // if (validateCgu(formData[6]) == "true"){
-  //   closeModal();
-  // }
 }
