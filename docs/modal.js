@@ -171,8 +171,6 @@ function validateBirthdate(dataError) {// check value birthdate
   const yearTimeDate = timeDate.getFullYear();
   const ageUser = Math.abs(yearTimeDate - 1970);
 
-  console.log("User"+birthdateUser.getTime());
-  console.log("maintenant"+Date.now());
   if (birthdate.value == "" && formData[3].dataset.error == "Champ vide.") {
     dataError.dataset.correct = "false";
     resultEvent = "false";
