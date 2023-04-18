@@ -352,7 +352,7 @@ function validate(event) {// validate modal form
 
   if (validateFirstName(formData[0]) == "true" && validateLastName(formData[1]) == "true" 
   && validateEmail(formData[2]) == "true" && validateBirthdate(formData[3]) == "true" 
-  && validateQuantity(formData[4]) == "true" && validateLocation(formData[5] == "true") 
+  && validateQuantity(formData[4]) == "true" && validateLocation(formData[5]) == "true" 
   && validateCgu(formData[6]) == "true") {
 
     launchValidateModal();
