@@ -8,7 +8,7 @@ const editNavBar = document.querySelector(".icon");
 const modal = document.querySelector('[name="reserve"]');
 const modalRegistValid = document.querySelector(".modal-registration-validated");
 const textControl = document.querySelectorAll(".text-control");
-const checkBoxInput = document.querySelectorAll(".checkbox-input");
+const checkBoxInput = document.querySelectorAll('.checkbox-input');
 
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
@@ -16,6 +16,7 @@ const email = document.getElementById("email");
 const birthdate = document.getElementById("birthdate");
 const quantity = document.getElementById("quantity");
 
+const locationn = document.querySelectorAll('.checkbox-input[name="location"]');
 const location1 = document.getElementById("location1");
 const location2 = document.getElementById("location2");
 const location3 = document.getElementById("location3");
@@ -245,30 +246,34 @@ function validateQuantity(dataError) {// check value quantity
     dataError.dataset.correct = "true";
     resultEvent = "true";
   }
+
   return resultEvent;
 }
 function validateLocation(dataError) {// check value location
 
-  if (location1.checked == false & location2.checked == false & location3.checked == false
-    & location4.checked == false & location5.checked == false & location6.checked == false
-    && formData[5].dataset.error == "Vous devez choisir une option.") {
-    dataError.dataset.correct = "false";
-    resultEvent = "false";
-  }
-  else if (location1.checked == false & location2.checked == false & location3.checked == false
-    & location4.checked == false & location5.checked == false & location6.checked == false) {
+  locationn.forEach((radio) => {
+    const idLocation = radio.getAttribute('id');
+    const valueLocation = document.getElementById(idLocation).checked;
+    
+    if(valueLocation == false
+      && formData[5].dataset.error == "Vous devez choisir une option.") {
+        dataError.dataset.correct = "false";
+    
+    }
+    else if(valueLocation == false){
+      dataError.dataset.errorVisible = "false";
+      dataError.dataset.error = "";
+      dataError.dataset.correct = "false";
+      
+    }
+    else {
+      dataError.dataset.errorVisible = "false";
+      dataError.dataset.error = "";
+      dataError.dataset.correct = "true";
+      resultEvent = "true";
+    }
+  });
 
-    dataError.dataset.errorVisible = "false";
-    dataError.dataset.error = "";
-    dataError.dataset.correct = "false";
-    resultEvent = "false";
-  }
-  else {
-    dataError.dataset.errorVisible = "false";
-    dataError.dataset.error = "";
-    dataError.dataset.correct = "true";
-    resultEvent = "true";
-  }
   return resultEvent;
 }
 function validateCgu(dataError) {// check value cgu
@@ -319,12 +324,13 @@ function emptyFieldsModal() {// check values empty's
     formData[4].dataset.errorVisible = "true";
     formData[4].dataset.error = "Champ vide.";
   }
-  if (location1.checked == false & location2.checked == false & location3.checked == false
-    & location4.checked == false & location5.checked == false & location6.checked == false) {
+  
+ if (location1.checked == false & location2.checked == false & location3.checked == false
+   & location4.checked == false & location5.checked == false & location6.checked == false) {
 
-    formData[5].dataset.errorVisible = "true";
-    formData[5].dataset.error = "Vous devez choisir une option.";
-  }
+   formData[5].dataset.errorVisible = "true";
+   formData[5].dataset.error = "Vous devez choisir une option.";
+ }
   if (checkbox1.checked == false) {
 
     formData[6].dataset.errorVisible = "true";
